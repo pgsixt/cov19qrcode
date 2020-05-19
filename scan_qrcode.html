@@ -1,0 +1,87 @@
+<html lang="ko">
+	<head> 
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<meta http-equiv='cache-control' content='no-cache'>
+		<meta http-equiv='expires' content='0'>
+		<meta http-equiv='pragma' content='no-cache'> 
+		<meta name="format-detection" content="telephone=no"/>
+		
+		<!-- <meta name="apple-mobile-web-app-capable" content="yes">   -->
+		
+		<title>qr 정보설정</title>
+		<!-- CSS -->
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		
+	</head>
+	<body>  
+		<script>
+			function getParameterByName(name) {
+				name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+				var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+				results = regex.exec(location.search);
+				return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+			}
+			// http://naminsik.com/blog/3070
+			
+			
+			var result={};
+			var uid = getParameterByName('webhook_uid');
+			var dataset={'value1':localStorage.getItem('sschname'),'value2':'ok'};
+			
+			
+			if(!localStorage.getItem('setphone')||localStorage.getItem('setphone')=="") { //
+				//localStorage.setItem('sschname',setname);
+				var setname ="";
+				while (setname.trim()==""||setname==null) {
+					setname =prompt('이름을 입력하세요', '');
+					
+				} 
+				localStorage.setItem('sschname',setname.split(" ").join(""));
+				var setphone="";
+				
+				while (setphone==""||setphone==null) {
+					
+					var setphone = prompt('전화번호를 입력하세요', '');
+				} 
+				
+				localStorage.setItem('setphone',setphone.split(" ").join("").split("-").join(""));
+				document.write(setphone+"전화번호가 설정되었습니다.");
+			}
+			
+			var date = new Date();
+			
+			// date Object를 받아오고 
+			var year = date.getFullYear();
+			var month = date.getMonth();
+			var clockDate = date.getDate();
+			var day = date.getDay();
+			var hours = date.getHours();
+			var minutes = date.getMinutes();
+			var seconds = date.getSeconds();
+			var value_datestamp= `${year}-${month+1}-${clockDate}_` + `${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes }`  : minutes }:${seconds < 10 ? `0${seconds }`  : seconds }`;
+			
+			
+			
+			
+			$.ajax({
+				url: "https://maker.ifttt.com/trigger/qrcode/with/key/"+uid+"?value1="+encodeURI(localStorage.getItem('sschname').split(" ").join("")+"&value2="+localStorage.getItem('setphone')+"&value3="+value_datestamp),
+				dataType: 'jsonp',
+				success: function(data) {
+					console.log('성공 - ', data);
+				},
+				error: function(xhr) {
+					console.log(xhr);
+					localStorage.setItem('intime',value_datestamp);
+					location.href="./qr_result.html";
+					
+				}
+			});	
+			
+			 
+			
+		</script>
+	</body>
+</html>
