@@ -1,0 +1,45 @@
+<html lang="ko">
+	<head> 
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<meta http-equiv='cache-control' content='no-cache'>
+		<meta http-equiv='expires' content='0'>
+		<meta http-equiv='pragma' content='no-cache'> 
+		<meta name="format-detection" content="telephone=no"/>
+		 
+		
+		<title>산성 QR코드</title>
+		 
+	<style>
+	body {
+	background-color:green;
+	color:white;
+	text-align:center
+	} 
+	</style>
+	</head>
+	<body>
+	<script>
+		
+					
+				document.write("<br><br><h1>"+localStorage.getItem('sschname')+"님 확인 감사합니다</h1><h2>산성교회 출입시간은 <br/>"+localStorage.getItem('intime')+" 입니다.</h2>");
+				 
+					setTimeout(function() { 
+						 self.close();
+					}, 5000);
+					
+					setTimeout(function() { 
+					confirm(localStorage.getItem('sschname')+"님 확인 감사합니다. 처리되었습니다");
+//					if(!!confirm(localStorage.getItem('sschname')+"님 확인 감사합니다. 처리되었습니다")) self.close();
+					},1000);
+					setTimeout(function() { 
+						location.href="http://ssch.net";
+					}, 12000);
+					
+					
+	</script>	
+	</body>
+</html>
+	
